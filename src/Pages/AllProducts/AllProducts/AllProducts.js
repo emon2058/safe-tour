@@ -2,7 +2,7 @@ import React, { useEffect,useState } from 'react';
 import Grid from '@mui/material/Grid';
 import { Container, Typography } from '@mui/material';
 import Product from '../Product/Product';
-const Products = () => {
+const AllProducts = () => {
     const [products,setProducts] = useState([]);
     useEffect(()=>{
         fetch('products.json')
@@ -13,7 +13,7 @@ const Products = () => {
         <Container>
             <Typography variant="h3">Products </Typography>
             <Grid container spacing={2}>
-                {products.slice(0,6).map(product=>
+                {products.map(product=>
                     <Product 
                     key={product.id}
                     product={product}/>
@@ -23,4 +23,4 @@ const Products = () => {
     );
 };
 
-export default Products;
+export default AllProducts;
