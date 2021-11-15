@@ -6,8 +6,9 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Grid, Stack } from '@mui/material';
+import { Link } from 'react-router-dom';
 const Product = ({product}) => {
-    const {img,name,price,description} = product;
+    const {_id,img,name,price,description} = product;
     return (
         <Grid item xs={12} md={6} lg={4}>
             <Card>
@@ -26,7 +27,9 @@ const Product = ({product}) => {
                 </CardContent>
                 <Stack direction="row" justifyContent="space-between" sx={{mx:2}}>
                     <CardActions>
+                        <Link to={`/product/${_id}`}>
                         <Button variant="contained">Order Now</Button>
+                        </Link>
                     </CardActions>
                     <Typography variant="h6" gutterBottom component="div">
                         ${price}
