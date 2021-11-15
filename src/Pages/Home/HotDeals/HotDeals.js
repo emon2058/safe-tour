@@ -6,7 +6,7 @@ import HotDeal from '../HotDeal/HotDeal';
 const HotDeals = () => {
     const [hotDeals,setHotDeals] = useState([]);
     useEffect(()=>{
-        fetch('products.json')
+        fetch('http://localhost:5000/products')
         .then(res => res.json())
         .then(data => setHotDeals(data))
     },[])

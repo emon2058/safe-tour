@@ -5,7 +5,7 @@ import Review from '../Review/Review';
 const Reviews = () => {
     const [reviews, setReviews] = useState([]);
     useEffect(()=>{
-        fetch('review.json')
+        fetch('http://localhost:5000/reviews')
         .then(res => res.json())
         .then(data => setReviews(data))
     },[])
@@ -14,7 +14,7 @@ const Reviews = () => {
             <Typography variant="h3">Reviews</Typography>
             <Grid container>
                 {reviews.map(review=><Review
-                    key = {review.id}
+                    key = {review._id}
                     review={review}></Review>)}
             </Grid>
         </Container>

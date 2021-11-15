@@ -38,6 +38,9 @@ const Navigation = () => {
                     <NavLink to='/dashboard'>
                     <Button color="inherit">DASHBOARD</Button>
                 </NavLink>
+                <Typography variant="h6" component="span" sx={{ flexGrow: 1 ,color:'yellow'}}>
+                        {user.displayName||user.email}
+                    </Typography>
                 <Button onClick={logout} color="inherit">Logout</Button>
                 </Box>:<NavLink to='/login'>
                         <Button color="inherit">Login</Button>

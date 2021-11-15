@@ -27,7 +27,7 @@ const Product = ({product}) => {
                 </CardContent>
                 <Stack direction="row" justifyContent="space-between" sx={{mx:2}}>
                     <CardActions>
-                        <Link to={`/product/${_id}`}>
+                        <Link style={{textDecoration: 'none'}} to={`/product/${_id}`}>
                         <Button variant="contained">Order Now</Button>
                         </Link>
                     </CardActions>

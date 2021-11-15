@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router';
-import { Container, TextField, Typography } from '@mui/material';
+import { useHistory, useParams } from 'react-router';
+import { Alert, Container, TextField, Typography } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -11,24 +11,59 @@ import useAuth from '../../hooks/useAuth';
 
 const OrderNow = () => {
     const [order,setOrder] = useState([]);
-
     const {user} = useAuth();
-    const {id}=useParams();
 
+    const [showAlert,setShowAlert]=useState(false)
+    const [userInfo,setUserInfo] = useState({
+        address: '',
+        phone: ''
+    })
+    const {id}=useParams();
+    const history = useHistory();
     useEffect(()=>{
         const url = `http://localhost:5000/product/${id}`;
         fetch(url)
         .then(res=>res.json())
         .then(data => setOrder(data))
     },[])
-    const handleOrder=e=>{
+    const handleOnBlur = e =>{
+        const name = e.target.name;
+        const value = e.target.value;
+        const newField = {...userInfo};
+        newField[name] = value;
+        setUserInfo(newField);
+    }
+    const handleOrderSubmit=e=>{
+        const orders = {
+            name:user.displayName,
+            email:user.email,
+            price:order.price,
+            ...userInfo
+        }
+        fetch('http://localhost:5000/orders',{
+            method:'POST',
+            headers:{
+                'content-type':'application/json'
+            },
+            body: JSON.stringify(orders)
+        })
+        .then(res => res.json())
+        .then(data=>{
+            if(data.insertedId){
+                setShowAlert(true);
+            }
+        })
+        .then(() =>{
+            history.push('/')
+        })
+        console.log(orders)
         e.preventDefault()
     }
     return (
         <Container>
             <Typography variant="h3">Orders</Typography>
             <Grid container spacing={2}>
-                <Grid item xs={12} md={6} lg={4}>
+                <Grid item xs={12} md={6}>
                     <Card>
                         <CardMedia
                             component="img"
@@ -45,8 +80,8 @@ const OrderNow = () => {
                         </CardContent>
                     </Card>
                 </Grid>
-                <Grid item xs={12} md={6} lg={4}>
-                    <form onSubmit={handleOrder}>
+                <Grid item xs={12} md={6}>
+                    <form onSubmit={handleOrderSubmit}>
                         <TextField sx={{width:'75%',mb:2}}
                         disabled
                         value={user.displayName}
@@ -57,19 +92,23 @@ const OrderNow = () => {
                         variant="standard" />
                         <TextField sx={{width:'75%',mb:2}}
                         disabled
-                        value={order.price}
+                        value={order.discountPrice?order.discountPrice:parseFloat(order.price).toFixed(2)}
                         variant="standard" />
                         <TextField sx={{width:'75%',mb:2}}
                         placeholder='Your Address'
                         name="address"
+                        onBlur={handleOnBlur}
                         variant="standard" />
                         <TextField sx={{width:'75%',mb:2}}
                         placeholder="your phone number"
                         name="phone" 
+                        onBlur={handleOnBlur}
+                        defaultValue={userInfo.phone}
                         variant="standard" />
                         <br/>
                         <Button type='submit' variant="contained">Submit</Button>
                     </form>
+                    {showAlert && <Alert severity="success">Order success</Alert>}
                 </Grid>
             </Grid>
         </Container>

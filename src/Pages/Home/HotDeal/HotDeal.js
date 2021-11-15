@@ -6,9 +6,10 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Grid, Stack } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const HotDeal = ({hotDeal}) => {
-    const {img,name,price,description} = hotDeal;
+    const {_id,img,name,price,discountPrice,description} = hotDeal;
     return (
         <Grid item xs={12} md={6} lg={4}>
             <Card>
@@ -27,14 +28,16 @@ const HotDeal = ({hotDeal}) => {
                 </CardContent>
                 <Stack direction="row" justifyContent="space-between" sx={{mx:2}}>
                     <CardActions>
-                        <Button variant="contained">Order Now</Button>
+                        <Link style={{textDecoration:'none'}} to={`/product/${_id}`}>
+                            <Button variant="contained">Order Now</Button>
+                        </Link>
                     </CardActions>
                     <Stack>
                         <Typography sx={{textDecoration:'line-through', color:'gray'}} variant="h6" gutterBottom component="div">
                             ${price}
                         </Typography>
                         <Typography variant="h6" gutterBottom component="div">
-                            ${parseFloat(price * .70).toFixed(2)}
+                            ${discountPrice}
                         </Typography>
                     </Stack>
                 </Stack>
