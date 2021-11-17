@@ -36,7 +36,10 @@ const OrderNow = () => {
     const handleOrderSubmit=e=>{
         const orders = {
             name:user.displayName,
+            productName:order.name,
+            description:order.description,
             email:user.email,
+            img:order.img,
             price:order.price,
             ...userInfo
         }

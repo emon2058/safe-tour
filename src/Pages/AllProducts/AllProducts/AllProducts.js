@@ -2,6 +2,7 @@ import React, { useEffect,useState } from 'react';
 import Grid from '@mui/material/Grid';
 import { Container, Typography } from '@mui/material';
 import Product from '../Product/Product';
+import Navigation from '../../Shared/Navigation/Navigation';
 const AllProducts = () => {
     const [products,setProducts] = useState([]);
     useEffect(()=>{
@@ -15,7 +16,7 @@ const AllProducts = () => {
             <Grid container spacing={2}>
                 {products.map(product=>
                     <Product 
-                    key={product.id}
+                    key={product._id}
                     product={product}/>
                     )}
             </Grid>

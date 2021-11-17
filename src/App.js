@@ -11,31 +11,41 @@ import Login from './Pages/Login/Login/Login';
 import AuthProvider from './contexts/AuthProvider/AuthProvider';
 import Register from './Pages/Login/Register/Register';
 import OrderNow from './Pages/OrderNow/OrderNow';
+import Dashboard from './Pages/Dashboard/Dashboard/Dashboard';
+import PrivateRoute from './Pages/Login/PrivateRoute/PrivateRoute';
 function App() {
   return (
     <div className="App">
       <AuthProvider>
         <Router>
-          <Navigation/>
           <Switch>
             <Route exact path='/'>
+              <Navigation/>
               <Home/>
             </Route>
             <Route path='/home'>
+              <Navigation/>
               <Home/>
             </Route>
-            <Route exact path='/allProducts'>
+            <Route path='/allProducts'>
+              <Navigation/>
               <AllProducts/>
             </Route>
-            <Route path='/product/:id'>
+            <PrivateRoute path='/product/:id'>
+              <Navigation/>
               <OrderNow/>
-            </Route>
+            </PrivateRoute>
             <Route path='/login'>
+              <Navigation/>
               <Login/>
             </Route>
             <Route path='/register'>
+              <Navigation/>
               <Register/>
             </Route>
+            <PrivateRoute path='/dashboard'>
+              <Dashboard/>
+            </PrivateRoute>
           </Switch>
         </Router>
       </AuthProvider>

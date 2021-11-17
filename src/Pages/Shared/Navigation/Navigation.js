@@ -10,7 +10,7 @@ import { NavLink } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 
 const Navigation = () => {
-    const {user,logout}=useAuth();
+    const {user,logout,admin}=useAuth();
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -35,9 +35,11 @@ const Navigation = () => {
                     </Typography>
                 </NavLink>
                 {user.email?<Box>
-                    <NavLink to='/dashboard'>
+                    {admin?<NavLink to='/dashboard/manageOrders'>
                     <Button color="inherit">DASHBOARD</Button>
-                </NavLink>
+                </NavLink>:<NavLink to='/dashboard/orders'>
+                    <Button color="inherit">DASHBOARD</Button>
+                </NavLink>}
                 <Typography variant="h6" component="span" sx={{ flexGrow: 1 ,color:'yellow'}}>
                         {user.displayName||user.email}
                     </Typography>
