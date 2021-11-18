@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
+import  { useEffect, useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -6,14 +7,32 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-  
+import { Button, Container } from '@mui/material';
+
 const ManageAllOrders = () => {
+
+    const[shipped,setShipped] = useState('Shipped');
     const [allOrders,setAllOrders] = useState([]);
+
     useEffect(()=>{
         fetch('http://localhost:5000/orders')
         .then(res => res.json())
         .then(data=>setAllOrders(data))
     },[])
+    
+    const handleRemoveOrder = id =>{
+      const url=`http://localhost:5000/orders/${id}`
+      console.log(url)
+      fetch(url,{
+        method: 'DELETE'
+      })
+      .then(res => res.json())
+      .then(data =>{
+        if(data.deletedCount){
+          window.location.reload()
+        }
+      })
+    }
     let id=1;
     return (
       <TableContainer component={Paper} sx={{mt:6}}>
@@ -44,13 +63,16 @@ const ManageAllOrders = () => {
                 <TableCell align="right">{order.email}</TableCell>
                 <TableCell align="right">{order.productName}</TableCell>
                 <TableCell align="right">{order.price}</TableCell>
-                <TableCell align="right">Shipped</TableCell>
-                <TableCell align="right">Delete</TableCell>
+                <TableCell align="right"><Button variant="contained" sx={{backgroundColor:'green'}}>Shipped</Button></TableCell>
+                <TableCell align="right">
+                  <Button variant="outlined" onClick={()=>handleRemoveOrder(order._id)}>Delete</Button>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+
     );
 };
 

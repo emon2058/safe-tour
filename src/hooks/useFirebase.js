@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword,signInWithPopup,GoogleAuthProvider,onAuthStateChanged,updateProfile,signOut } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword,signInWithPopup,GoogleAuthProvider,onAuthStateChanged,updateProfile,getIdToken,signOut } from "firebase/auth";
 import initializeFirebase from '../Pages/Login/Firebase/firebase.init';
 
 // initialize firebase app 
 initializeFirebase();
 
 const useFirebase = () => {
-    const [user,setUser] = useState([]);
+    const [user,setUser] = useState({});
     const [loading,setLoading] =useState(true)
     const [authError,setAuthError] = useState('');
     const [admin,setAdmin] = useState(false)
+    const [token,setToken] = useState('');
 
     const auth = getAuth();
     const googleProvider = new GoogleAuthProvider();
@@ -88,17 +89,17 @@ const useFirebase = () => {
     const unsubscribed = onAuthStateChanged(auth, (user) => {
         if (user) {
             setUser(user);
-            // getIdToken(user)
-            // .then(idToken=>{
-            //     setToken(idToken);
-            // })
+            getIdToken(user)
+            .then(idToken=>{
+                setToken(idToken);
+            })
         } else {
             setUser({})
         }
         setLoading(false);
     });
     return () => unsubscribed;
-}, [])
+}, [auth])
 
 // check admin is true or false 
   useEffect(()=>{
@@ -119,6 +120,7 @@ const logout = () => {
     return {
         user,
         admin,
+        token,
         loading,
         authError,
         registerUser,

@@ -1,28 +1,20 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import AddReview from '../AddReview/AddReview';
 import Orders from '../Orders/Orders';
 import {
-    BrowserRouter as Router,
     Switch,
     Route,
     Link,
-    useParams,
     useRouteMatch
   } from "react-router-dom";
 import useAuth from '../../../hooks/useAuth';
@@ -53,13 +45,13 @@ const Dashboard = (props) => {
         <List>
          {!admin?<Box> 
           {/* {admin && */}
-           <Link to={`${url}/orders`}><Button color="inherit">Orders</Button></Link><br/>
-           <Link to={`${url}/pay`}><Button color="inherit">Pay</Button></Link><br/>
-           <Link to={`${url}/addReview`}><Button color="inherit">Review</Button></Link><br/>
+           <Link style={{textDecoration:'none'}} to={`${url}/orders`}><Button color="inherit">Orders</Button></Link><br/>
+           <Link style={{textDecoration:'none'}} to={`${url}/pay`}><Button color="inherit">Pay</Button></Link><br/>
+           <Link style={{textDecoration:'none'}} to={`${url}/addReview`}><Button color="inherit">Review</Button></Link><br/>
            </Box>:
-           <Box><Link to={`${url}/manageOrders`}><Button color="inherit">All Orders</Button></Link><br/>
-           <Link to={`${url}/addProduct`}><Button color="inherit">Add a Product</Button></Link><br/>
-          <Link to={`${url}/makeAdmin`}><Button color="inherit">Make Admin</Button></Link><br/>
+           <Box><Link style={{textDecoration:'none'}} to={`${url}/manageOrders`}><Button color="inherit">All Orders</Button></Link><br/>
+           <Link style={{textDecoration:'none'}} to={`${url}/addProduct`}><Button color="inherit">Add a Product</Button></Link><br/>
+          <Link style={{textDecoration:'none'}} to={`${url}/makeAdmin`}><Button color="inherit">Make Admin</Button></Link><br/>
           </Box>}
         </List>
         <Divider />

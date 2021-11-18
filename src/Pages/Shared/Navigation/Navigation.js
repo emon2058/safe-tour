@@ -24,27 +24,27 @@ const Navigation = () => {
                 >
                     <MenuIcon />
                 </IconButton>
-                <NavLink to='/'>
+                <NavLink style={{textDecoration:'none'}} to='/'>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Visibly Bright
                     </Typography>
                 </NavLink>
-                <NavLink to='/allProducts'>
+                <NavLink style={{textDecoration:'none'}} to='/allProducts'>
                     <Typography variant="h6" component="div" sx={{ mx:'auto',flexGrow: 1 }}>
                         Products
                     </Typography>
                 </NavLink>
                 {user.email?<Box>
-                    {admin?<NavLink to='/dashboard/manageOrders'>
+                    {admin?<NavLink style={{textDecoration:'none'}} to='/dashboard/manageOrders'>
                     <Button color="inherit">DASHBOARD</Button>
-                </NavLink>:<NavLink to='/dashboard/orders'>
+                </NavLink>:<NavLink style={{textDecoration:'none'}} to='/dashboard/orders'>
                     <Button color="inherit">DASHBOARD</Button>
                 </NavLink>}
                 <Typography variant="h6" component="span" sx={{ flexGrow: 1 ,color:'yellow'}}>
                         {user.displayName||user.email}
                     </Typography>
                 <Button onClick={logout} color="inherit">Logout</Button>
-                </Box>:<NavLink to='/login'>
+                </Box>:<NavLink style={{textDecoration:'none'}} to='/login'>
                         <Button color="inherit">Login</Button>
                     </NavLink>
                 }
