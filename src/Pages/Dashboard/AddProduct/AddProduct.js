@@ -18,7 +18,7 @@ const AddProduct = () => {
     }
     const handleAddProduct = (e) =>{
         console.log(AddProduct)
-        fetch('http://localhost:5000/products',{
+        fetch('https://immense-sea-06792.herokuapp.com/products',{
             method:'POST',
             headers:{
                 'content-type':'application/json'

@@ -24,7 +24,7 @@ const AddReview = () => {
             name:user.displayName,
             ...addReviews
         }
-        fetch('http://localhost:5000/reviews',{
+        fetch('https://immense-sea-06792.herokuapp.com/reviews',{
             method:'POST',
             headers:{
                 'content-type':'application/json'

@@ -15,13 +15,13 @@ const ManageAllOrders = () => {
     const [allOrders,setAllOrders] = useState([]);
 
     useEffect(()=>{
-        fetch('http://localhost:5000/orders')
+        fetch('https://immense-sea-06792.herokuapp.com/orders')
         .then(res => res.json())
         .then(data=>setAllOrders(data))
     },[])
     
     const handleRemoveOrder = id =>{
-      const url=`http://localhost:5000/orders/${id}`
+      const url=`https://immense-sea-06792.herokuapp.com/orders/${id}`
       console.log(url)
       fetch(url,{
         method: 'DELETE'

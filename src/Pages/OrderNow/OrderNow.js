@@ -21,7 +21,7 @@ const OrderNow = () => {
     const {id}=useParams();
     const history = useHistory();
     useEffect(()=>{
-        const url = `http://localhost:5000/product/${id}`;
+        const url = `https://immense-sea-06792.herokuapp.com/product/${id}`;
         fetch(url)
         .then(res=>res.json())
         .then(data => setOrder(data))
@@ -43,7 +43,7 @@ const OrderNow = () => {
             price:order.price,
             ...userInfo
         }
-        fetch('http://localhost:5000/orders',{
+        fetch('https://immense-sea-06792.herokuapp.com/orders',{
             method:'POST',
             headers:{
                 'content-type':'application/json'
