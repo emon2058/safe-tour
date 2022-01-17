@@ -127,7 +127,7 @@ const Dashboard = (props) => {
         <Route path={`${path}/orders`}>
           <Orders/>
         </Route>
-        <Route path={`${path}/pay`}>
+        <Route path={`${path}/pay/:id`}>
           <Pay/>
         </Route>
         <Route path={`${path}/addReview`}>

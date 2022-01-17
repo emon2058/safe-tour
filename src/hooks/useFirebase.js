@@ -91,6 +91,7 @@ const useFirebase = () => {
             setUser(user);
             getIdToken(user)
             .then(idToken=>{
+              // console.log('firebase token: ',idToken)
                 setToken(idToken);
             })
         } else {

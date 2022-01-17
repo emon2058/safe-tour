@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button, Container } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const ManageAllOrders = () => {
 
@@ -63,7 +64,11 @@ const ManageAllOrders = () => {
                 <TableCell align="right">{order.email}</TableCell>
                 <TableCell align="right">{order.productName}</TableCell>
                 <TableCell align="right">{order.price}</TableCell>
-                <TableCell align="right"><Button variant="contained" sx={{backgroundColor:'green'}}>Shipped</Button></TableCell>
+                <TableCell align="right">
+                  <Link sx={{textDecoration:'none',backgroundColor:'green'}} to={`/dashboard/pay/${order._id}`}>
+                    <Button variant="contained">Pay</Button>
+                  </Link>
+                  </TableCell>
                 <TableCell align="right">
                   <Button variant="outlined" onClick={()=>handleRemoveOrder(order._id)}>Delete</Button>
                 </TableCell>
