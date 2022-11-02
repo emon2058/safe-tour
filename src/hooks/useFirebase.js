@@ -75,7 +75,7 @@ const useFirebase = () => {
   // insert and update  user to database
     const saveUser = (email,displayName,method)=>{
       const user = {email,displayName};
-      fetch('https://immense-sea-06792.herokuapp.com/users',{
+      fetch('https://visibly-bright-server-production.up.railway.app/users',{
         method:method,
         headers:{
           'content-type':'application/json'
@@ -104,7 +104,7 @@ const useFirebase = () => {
 
 // check admin is true or false 
   useEffect(()=>{
-    fetch(`https://immense-sea-06792.herokuapp.com/users/${user.email}`)
+    fetch(`https://visibly-bright-server-production.up.railway.app/users/${user.email}`)
     .then(res => res.json())
     .then(data => setAdmin(data.admin))
   },[user.email])

@@ -1,4 +1,4 @@
-import { Alert, Button, TextField } from '@mui/material';
+import { Alert, Button, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import useAuth from '../../../hooks/useAuth';
 
@@ -12,7 +12,7 @@ const MakeAdmin = () => {
     const handleAdminSubmit = e =>{
         const user={email};
         console.log(user)
-        fetch('https://immense-sea-06792.herokuapp.com/users/admin',{
+        fetch('https://visibly-bright-server-production.up.railway.app/users/admin',{
             method:'PUT',
             headers:{
                 'authorization':`Bearer ${token}`,
@@ -31,7 +31,8 @@ const MakeAdmin = () => {
     }
     return (
         <div>
-            <h1>Make Admin</h1>
+            <Typography sx={{mt:6}} variant="h2" gutterBottom component="h1">Make Admin
+      </Typography>
             <form onSubmit={handleAdminSubmit}>
                 <TextField
                 label="Email"

@@ -122,7 +122,7 @@ const Navigation = () => {
                 <ListItem button>
                   <Button className={navItem} onClick={logout}>Logout</Button>
                 </ListItem>
-                </Box>:<NavLink  className={navItem}to='/login'>
+                </Box>:<NavLink  className={navItem} to='/login'>
                         <Button color="inherit">Login</Button>
                     </NavLink>}
               </List>

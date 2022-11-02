@@ -3,10 +3,11 @@ import Grid from '@mui/material/Grid';
 import { Container, Typography } from '@mui/material';
 import Product from '../Product/Product';
 import Navigation from '../../Shared/Navigation/Navigation';
+
 const AllProducts = () => {
     const [products,setProducts] = useState([]);
     useEffect(()=>{
-        fetch('https://immense-sea-06792.herokuapp.com/products')
+        fetch('https://visibly-bright-server-production.up.railway.app/products')
         .then(res => res.json())
         .then(data => setProducts(data))
     },[])

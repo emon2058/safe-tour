@@ -18,7 +18,7 @@ const AddProduct = () => {
     }
     const handleAddProduct = (e) =>{
         console.log(AddProduct)
-        fetch('https://immense-sea-06792.herokuapp.com/products',{
+        fetch('https://visibly-bright-server-production.up.railway.app/products',{
             method:'POST',
             headers:{
                 'content-type':'application/json'

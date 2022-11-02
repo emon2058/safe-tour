@@ -16,13 +16,13 @@ const ManageAllOrders = () => {
     const [allOrders,setAllOrders] = useState([]);
 
     useEffect(()=>{
-        fetch('https://immense-sea-06792.herokuapp.com/orders')
+        fetch('https://visibly-bright-server-production.up.railway.app/orders')
         .then(res => res.json())
         .then(data=>setAllOrders(data))
-    },[])
+    },[allOrders])
     
     const handleRemoveOrder = id =>{
-      const url=`https://immense-sea-06792.herokuapp.com/orders/${id}`
+      const url=`https://visibly-bright-server-production.up.railway.app/orders/${id}`
       console.log(url)
       fetch(url,{
         method: 'DELETE'
@@ -30,7 +30,7 @@ const ManageAllOrders = () => {
       .then(res => res.json())
       .then(data =>{
         if(data.deletedCount){
-          window.location.reload()
+          console.log('deleted')
         }
       })
     }
@@ -65,9 +65,10 @@ const ManageAllOrders = () => {
                 <TableCell align="right">{order.productName}</TableCell>
                 <TableCell align="right">{order.price}</TableCell>
                 <TableCell align="right">
-                  <Link sx={{textDecoration:'none',backgroundColor:'green'}} to={`/dashboard/pay/${order._id}`}>
+                {order.payment?'Paid':
+                  <Link style={{textDecoration:'none'}} to={`/dashboard/pay/${order._id}`}>
                     <Button variant="contained">Pay</Button>
-                  </Link>
+                  </Link>}
                   </TableCell>
                 <TableCell align="right">
                   <Button variant="outlined" onClick={()=>handleRemoveOrder(order._id)}>Delete</Button>

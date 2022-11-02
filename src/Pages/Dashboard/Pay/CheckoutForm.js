@@ -1,10 +1,11 @@
 import { CircularProgress } from '@mui/material';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const CheckoutForm = ({order}) => {
-    // console.log('order',order)
-    const {price,name,email} = order;
+    console.log('order',order)
+    const {_id,price,name,email} = order;
     const stripe = useStripe();
     const elements = useElements();
 
@@ -13,8 +14,11 @@ const CheckoutForm = ({order}) => {
     const [processing,setProcessing] = useState(false);
     const [clientSecrect,setClientSecrect] = useState('');
     
+    const history = useHistory();
     useEffect(()=>{
-        fetch('http://localhost:5000/create-payment-intent',{
+        const url = 'https://visibly-bright-server-production.up.railway.app/create-payment-intent';
+        const url1 = 'http://localhost:5000/create-payment-intent';
+        fetch(url,{
             method:'POST',
             headers:{
                 'content-type':'application/json'
@@ -22,8 +26,10 @@ const CheckoutForm = ({order}) => {
             body: JSON.stringify({price})
         })
         .then(res => res.json())
-        .then(data => setClientSecrect(data))
+        .then(data => setClientSecrect(data.clientSecrect))
+        .catch(err=>console.log('khali error',err))
     },[price])
+    console.log('client secrect',clientSecrect)
 
     const handleSubmit = async (event) => {
       // We don't want to let default form submission happen here,
@@ -52,28 +58,47 @@ const CheckoutForm = ({order}) => {
           console.log('payment method',paymentMethod)
       }
 
-    //   payment intent 
-    const {paymentIntent, errors} = await stripe.confirmCardPayment(
+     //   payment intent 
+        const {paymentIntent, errors} = await stripe.confirmCardPayment(
         clientSecrect,
         {
           payment_method: {
             card: card,
             billing_details: {
-              name: 'Jenny Rosen',
+              name: name,
+              email: email
             },
           },
         },
       );
       console.log('payment',paymentIntent)
       if(errors){
+        setSuccess('');
           setError(errors.message)
-          setSuccess('');
       }
       else{
           setError('');
           setSuccess('Your payment done');
           console.log('payment Intent',paymentIntent)
           setProcessing(false)
+        //   save to database
+        const payment = {
+          amount: paymentIntent.amount,
+          created:Date(1644202473).split(' ').slice(0,4).toString(),
+          transaction: paymentIntent.client_secret.split('secret_')[0]
+        }
+        const url = `https://visibly-bright-server-production.up.railway.app/orders/${_id}`
+        const url1 = `http://localhost:5000/orders/${_id}`
+        fetch(url,{
+          method:'PUT',
+          headers:{
+            'content-type': 'application/json'
+          },
+          body:JSON.stringify(payment)
+        })
+          .then(res=>res.json())
+          .then(data=>console.log('nerr',data))
+        //   history.push('/')
       }
     };
     return (
@@ -94,7 +119,7 @@ const CheckoutForm = ({order}) => {
                         },
                     },
                     }}/>
-                {processing?<CircularProgress/>:<button disabled={!stripe}>Pay ${price}</button>}
+                {processing?<CircularProgress/>:<button disabled={!stripe || success}>Pay ${price}</button>}
             </form>
             {error && <p style={{color:'red'}}>{error}</p>}
             {success && <p style={{color:'green'}}>{success}</p>}

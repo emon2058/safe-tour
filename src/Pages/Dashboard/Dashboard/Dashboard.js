@@ -44,7 +44,6 @@ const Dashboard = (props) => {
         <Divider />
         <List>
          {!admin?<Box> 
-          {/* {admin && */}
            <Link style={{textDecoration:'none'}} to={`${url}/orders`}><Button color="inherit">Orders</Button></Link><br/>
            <Link style={{textDecoration:'none'}} to={`${url}/pay`}><Button color="inherit">Pay</Button></Link><br/>
            <Link style={{textDecoration:'none'}} to={`${url}/addReview`}><Button color="inherit">Review</Button></Link><br/>

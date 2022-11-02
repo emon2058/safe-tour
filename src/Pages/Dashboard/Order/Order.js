@@ -3,13 +3,26 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Grid, Stack } from '@mui/material';
-
+import { Grid, Stack, Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 const Order = ({order}) => {
-    const {img,productName,description,price} = order;
+    const {_id,img,productName,description,price} = order;
+    const handleRemoveOrder = (id)=>{
+        const url=`https://visibly-bright-server-production.up.railway.app/orders/${id}`
+        fetch(url,{
+          method: 'DELETE'
+        })
+        .then(res => res.json())
+        .then(data =>{
+          if(data.deletedCount){
+            console.log('deleted')
+          }
+        })
+    }
+    console.log('order',order)
     return (
         <Grid item xs={12} md={6} lg={4}>
-            <Card>
+            <Card sx={{p:2}}>
                 <CardMedia
                     component="img"
                     height="250"
@@ -24,9 +37,14 @@ const Order = ({order}) => {
                     </Typography>
                 </CardContent>
                 <Stack direction="row" justifyContent="center" sx={{mx:2}}>
-                    <Typography variant="h6" gutterBottom component="div">
+                    <Typography variant="h6" gutterBottom component="span">
                         ${price}
                     </Typography>
+                    {/* {order.payment?'Paid':
+                  <Link style={{textDecoration:'none',margin:'0 auto'}} to={`/dashboard/pay/${order._id}`}>
+                    <Button variant="contained">Pay</Button>
+                  </Link>}
+                  <Button variant="outlined" onClick={()=>handleRemoveOrder(order._id)}>Delete</Button> */}
                 </Stack>
             </Card>
         </Grid>

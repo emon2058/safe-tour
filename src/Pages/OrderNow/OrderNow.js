@@ -21,7 +21,7 @@ const OrderNow = () => {
     const {id}=useParams();
     const history = useHistory();
     useEffect(()=>{
-        const url = `https://immense-sea-06792.herokuapp.com/product/${id}`;
+        const url = `https://visibly-bright-server-production.up.railway.app/product/${id}`;
         fetch(url)
         .then(res=>res.json())
         .then(data => setOrder(data))
@@ -43,7 +43,7 @@ const OrderNow = () => {
             price:order.price,
             ...userInfo
         }
-        fetch('https://immense-sea-06792.herokuapp.com/orders',{
+        fetch('https://visibly-bright-server-production.up.railway.app/orders',{
             method:'POST',
             headers:{
                 'content-type':'application/json'

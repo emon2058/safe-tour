@@ -6,7 +6,7 @@ import HotDeal from '../HotDeal/HotDeal';
 const HotDeals = () => {
     const [hotDeals,setHotDeals] = useState([]);
     useEffect(()=>{
-        fetch('https://immense-sea-06792.herokuapp.com/products')
+        fetch('https://visibly-bright-server-production.up.railway.app/products')
         .then(res => res.json())
         .then(data => setHotDeals(data))
     },[])

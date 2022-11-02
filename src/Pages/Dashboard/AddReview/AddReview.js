@@ -24,7 +24,7 @@ const AddReview = () => {
             name:user.displayName,
             ...addReviews
         }
-        fetch('https://immense-sea-06792.herokuapp.com/reviews',{
+        fetch('https://visibly-bright-server-production.up.railway.app/reviews',{
             method:'POST',
             headers:{
                 'content-type':'application/json'

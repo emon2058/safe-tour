@@ -9,26 +9,26 @@ const Orders = () => {
     const {user,token} = useAuth();
 
     useEffect(()=>{
-        const url = `https://immense-sea-06792.herokuapp.com/orders?email=${user.email}`
+        const url = `https://visibly-bright-server-production.up.railway.app/orders?email=${user.email}`
         const url1 = `http://localhost:5000/orders?email=${user.email}`
-        fetch(url1,{
+        fetch(url,{
             headers: {
                 'authorization': `Bearer ${token}`
             }
         })
         .then(res => res.json())
         .then(data => setOrders(data))
-    },[user.email])
-    console.log(orders,token)
+    },[])
+    console.log(orders)
     return (
         <Container>
             <Typography variant="h3" sx={{mt:5}}>ORDERS </Typography>
             <Grid container spacing={2}>
-                {orders.map(order=>
+                {orders.length?orders?.map(order=>
                     <Order 
                     key={order.id}
                     order={order}/>
-                    )}
+                    ):''}
             </Grid>
         </Container>
     );

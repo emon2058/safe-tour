@@ -10,7 +10,9 @@ const Pay = () => {
   const {id} = useParams()
   const [order,setOrder] = useState({})
   useEffect(()=>{
-    fetch(`http://localhost:5000/orders/${id}`)
+    const url = `https://visibly-bright-server-production.up.railway.app/orders/${id}`;
+    const url1=`http://localhost:5000/orders/${id}`;
+    fetch(url)
     .then(res=>res.json())
     .then(data => setOrder(data))
   },[id])
@@ -30,3 +32,15 @@ const Pay = () => {
 };
 
 export default Pay;
+
+/* payment system
+1.install stripe and stripe-react
+2.set published key
+3.Elements
+4.Checkout Form
+5.Create payment method
+6.Server create payment Intent
+7.Load client secrect
+8.ConfirmCard payment
+9.handle errors
+ */
